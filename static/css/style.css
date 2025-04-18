@@ -1,0 +1,53 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+}
+.key {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 4px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    line-height: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.key.special {
+    width: 80px;
+    border-width: 3px;
+    font-size: 16px;
+}
+.active {
+    background-color: #2667b3;
+    color: white;
+    border-color: #2667b3;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 20px;
+}
+.metrics-box {
+    text-align: left;
+    font-size: 18px;
+    max-width: 200px;
+}
+.mouse-btn {
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    margin: 8px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    line-height: 40px;
+    font-weight: bold;
+    background-color: #eee;
+}
+.mouse-btn.active {
+    background-color: #2196f3;
+    color: white;
+    border-color: #0b72c4;
+}

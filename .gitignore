@@ -1,0 +1,34 @@
+# Entornos virtuales
+env/
+.env/
+
+# Archivos Python compilados
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Archivos de base de datos locales
+*.sqlite3
+*.db
+keyflow.db
+
+# Archivos de configuración personales
+*.env
+*.log
+
+# Archivos temporales / del sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Jupyter / VSCode / PyCharm
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# Archivos de ejecución local
+*.pid
+*.bak
+*.tmp
