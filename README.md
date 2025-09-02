@@ -38,8 +38,10 @@ Proyecto con fines educativos y de análisis de escritura.
 1. **Clona este repositorio**
    ```bash
    git clone https://github.com/tuusuario/keyflow-monitor.git
-
+2. **Añade los modulos de py**
+   ```bash
    pip install -r requirements.txt
-
+3. **Inicializa la flask app**
+   ```bash
    python app.py
 
