@@ -44,4 +44,3 @@ Proyecto con fines educativos y de análisis de escritura.
 3. **Inicializa la flask app**
    ```bash
    python app.py
-
