@@ -20,7 +20,7 @@ Su objetivo principal es **analizar patrones de escritura**, medir la velocidad 
 
 ## 🛠️ Tecnologías
 
-Python 3, Flask, Flask-SocketIO
+Python 3.13.1, Flask, Flask-SocketIO
 
 pynput (registro de teclado y ratón)
 
@@ -39,4 +39,7 @@ Proyecto con fines educativos y de análisis de escritura.
    ```bash
    git clone https://github.com/tuusuario/keyflow-monitor.git
 
+   pip install -r requirements.txt
+
+   python app.py
 
