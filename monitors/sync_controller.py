@@ -4,7 +4,7 @@ import threading
 class SyncController:
     def __init__(self, callback, delay=0.02):
         self.callback = callback
-        self.delay = delay  # en segundos
+        self.delay = delay
         self.last_call_time = 0
         self.lock = threading.Lock()
 

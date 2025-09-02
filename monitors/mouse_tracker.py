@@ -6,9 +6,8 @@ class MouseTracker:
     def __init__(self):
         self.left_clicks = 0
         self.right_clicks = 0
-        self.callback = None  # nuevo
-        self.last_click = None  # para registrar qué tipo de clic fue
-
+        self.callback = None
+        self.last_click = None
 
         listener = mouse.Listener(on_click=self.on_click)
         threading.Thread(target=listener.start, daemon=True).start()
@@ -23,17 +22,14 @@ class MouseTracker:
                 self.last_click = "ClickDrch"
 
             if self.callback:
-                self.callback()
-
+                self.callback(x, y, self.last_click)
 
     def get_metrics(self):
-        click_info = {
+        return {
             "clicks_left": self.left_clicks,
             "clicks_right": self.right_clicks,
             "last_click": self.last_click
         }
-        return click_info
 
-
-    def register_callback(self, callback):  # nuevo
+    def register_callback(self, callback):
         self.callback = callback
