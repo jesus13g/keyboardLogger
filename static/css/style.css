@@ -1,53 +1,230 @@
-body {
-    font-family: sans-serif;
-    text-align: center;
-}
-.key {
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    margin: 4px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    line-height: 40px;
+/* ===== Base + layout Bootstrap-friendly ===== */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(1200px 800px at 20% -10%, #0f1b4d 0%, #0b102b 45%, #060912 100%);
+    color: #e9ecf8;
+    /* Dejamos el font-family general al sistema/Bootstrap */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+
+  header.navbar {
+    padding: 0.2% 0;              /* más alto */
+  }
+  
+  header .navbar-brand {
+    font-size: 2.5rem;            /* aumenta el texto */
+    font-weight: 700;             /* más grueso */
+  }
+  
+  main {
+    flex: 1; /* ocupa todo el espacio disponible */
+  }
+  
+  footer {
+    margin-top: auto; /* empuja el footer al fondo */
+  }
+  
+  /* Barra gradiente reutilizable para header y footer */
+  .gradient-bar {
+    background: linear-gradient(135deg, #0019ff 0%, #3a67ff 60%, #8aa2ff 100%);
+  }
+  
+  /* Empuje para evitar solaparse si usas footer fijo en el futuro */
+  .content-push {
+    padding-bottom: 84px;
+  }
+  
+/* Aumenta un poco el margen lateral */
+    .container-xl {
+        max-width: 1140px; /* más estrecho que xxl para dar aire */
+    }
+  
+  /* ===== Keyboard layout ===== */
+#keyboard {
+    /* Tamaño fijo por tecla (puedes ajustar) */
+    --key-w: 56px;
+    --key-h: 48px;
+    --gap: 10px;
+  
+    display: grid;
+    gap: var(--gap);
+    padding: 32px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 10px 30px rgba(0,0,0,.35);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  
+  /* Cada fila del teclado: usa columnas fijas y centra el conjunto */
+  #keyboard > div {
+    /* Valor por defecto, se sobreescribe más abajo por fila */
+    --cols: 10;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), var(--key-w));
+    gap: var(--gap);
+    justify-content: center; /* centra el “bloque” de teclas en el contenedor */
+  }
+  
+  /* Define el nº de columnas real por fila según tu HTML actual */
+  #keyboard > div:nth-child(1) { --cols: 11; } /* Q..P + Backspace */
+  #keyboard > div:nth-child(2) { --cols: 11; } /* A..L + Enter */
+  #keyboard > div:nth-child(3) { --cols: 9; }  /* Z..M */
+  #keyboard > div:nth-child(4) { --cols: 5; }  /* fila de la barra espaciadora */
+  
+  /* ===== Keys ===== */
+  .key {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: var(--key-w);
+    height: var(--key-h);
+    border-radius: 12px;
     text-transform: uppercase;
-    font-weight: bold;
-}
-.key.special {
-    width: 80px;
-    border-width: 3px;
-    font-size: 16px;
-}
-.active {
-    background-color: #2667b3;
-    color: white;
-    border-color: #2667b3;
-}
-.container {
+    font-weight: 700;
+    letter-spacing: .5px;
+    user-select: none;
+    cursor: default;
+  
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -3px 8px rgba(0,0,0,.25),
+      0 8px 24px rgba(0,0,0,.35);
+    color: #eaf1ff;
+  
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  }
+  
+  /* ===== Responsive ===== */
+  @media (max-width: 900px) {
+    #keyboard {
+      --key-w: 44px;  /* reduce tamaño por tecla en móvil */
+      --key-h: 44px;
+      --gap: 8px;
+    }
+  }
+  
+ /* Barra espaciadora 5x más ancha */
+ .key[data-key="space"] {
+    grid-column: span 5;
+    width: auto; /* deja que el grid controle el ancho */
+    text-transform: none; /* para que no se vea en mayúscula */
+  }
+  
+  .key:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.22),
+      inset 0 -3px 10px rgba(0,0,0,.28),
+      0 12px 28px rgba(0,0,0,.45);
+    border-color: rgba(255,255,255,.18);
+  }
+  
+  .key.active,
+  .key:active {
+    transform: translateY(1px) scale(.99);
+    background: linear-gradient(180deg, rgba(58,103,255,.35), rgba(25,48,166,.35));
+    border-color: rgba(138,162,255,.6);
+    box-shadow:
+      inset 0 2px 8px rgba(0,0,0,.35),
+      0 4px 16px rgba(0,0,0,.25);
+    outline: 0;
+  }
+  
+  .key.active::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+    box-shadow: 0 0 0 2px rgba(90,130,255,.25), 0 0 18px rgba(58,103,255,.35);
+    pointer-events: none;
+  }
+  
+  /* ===== Mouse buttons ===== */
+  #mouse {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    margin-top: 20px;
-}
-.metrics-box {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .mouse-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 140px;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.12);
+    color: #eaf1ff;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -3px 8px rgba(0,0,0,.25),
+      0 8px 24px rgba(0,0,0,.35);
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease, border-color .12s ease;
+  }
+  
+  .mouse-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255,255,255,.18);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.22),
+      inset 0 -3px 10px rgba(0,0,0,.28),
+      0 12px 28px rgba(0,0,0,.45);
+  }
+  
+  .mouse-btn.active {
+    transform: translateY(1px) scale(.99);
+    background: linear-gradient(180deg, rgba(58,103,255,.35), rgba(25,48,166,.35));
+    border-color: rgba(138,162,255,.6);
+    box-shadow:
+      inset 0 2px 8px rgba(0,0,0,.35),
+      0 4px 16px rgba(0,0,0,.25);
+  }
+  
+  /* ===== Metrics box ===== */
+  .metrics-box {
     text-align: left;
-    font-size: 18px;
-    max-width: 200px;
-}
-.mouse-btn {
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    margin: 8px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    line-height: 40px;
-    font-weight: bold;
-    background-color: #eee;
-}
-.mouse-btn.active {
-    background-color: #2196f3;
-    color: white;
-    border-color: #0b72c4;
-}
+    font-size: 16px;
+    min-width: 240px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.08),
+      0 10px 30px rgba(0,0,0,.35);
+  }
+  
+  .metrics-box p {
+    margin: 8px 0;
+    color: #d8def0;
+  }
+  
+  .metrics-box strong {
+    color: #ffffff;
+  }
+  
+  /* ===== Responsive tweaks ===== */
+  @media (max-width: 900px) {
+    #keyboard > div {
+      grid-auto-columns: minmax(36px, 1fr);
+    }
+    .key {
+      height: 44px;
+      min-width: 44px;
+    }
+    .key.special {
+      min-width: 84px;
+    }
+  }
+  
